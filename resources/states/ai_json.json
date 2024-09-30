@@ -1,0 +1,31 @@
+{
+  "lc": 1,
+  "type": "constructor",
+  "id": [
+    "langchain",
+    "schema",
+    "messages",
+    "AIMessage"
+  ],
+  "kwargs": {
+    "content": "Certainly! I'll initiate an investigation of the host 63.251.228.70 and create a safety report based on OWASP recommendations. To do this effectively, we'll need to gather more information about the host. Let's start by involving the planning team to outline our approach.\n\nPlanning team: Please help us create a structured plan to investigate the host 63.251.228.70. We need to gather information about its potential vulnerabilities and security posture. Include steps for reconnaissance, port scanning, and service identification.",
+    "response_metadata": {
+      "id": "msg_019G79xEpiKsWRXASGJJxjz1",
+      "model": "claude-3-5-sonnet-20240620",
+      "stop_reason": "end_turn",
+      "stop_sequence": "None",
+      "usage": {
+        "input_tokens": 162,
+        "output_tokens": 115
+      }
+    },
+    "type": "ai",
+    "id": "run-68156fb9-4f52-44a8-891a-3aa6e41eabce-0",
+    "usage_metadata": {
+      "input_tokens": 162,
+      "output_tokens": 115,
+      "total_tokens": 277
+    },
+    "tool_calls": [], "invalid_tool_calls": []
+  }
+}
