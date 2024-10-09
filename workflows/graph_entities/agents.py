@@ -9,7 +9,6 @@ import utils
 
 from utils import orm_util as orm
 from workflows.graph_entities.statets import TeamState
-from workflows.graph_entities.schemes import oai_schema
 
 
 def assistant_agent_with_tools(model_llm: ChatOpenAI | ChatAnthropic, tools, system_message: str):
@@ -55,8 +54,7 @@ def assistant_agent_with_tools(model_llm: ChatOpenAI | ChatAnthropic, tools, sys
 
 def assistant_agent_without_tools(
         model_llm: ChatOpenAI | ChatAnthropic,
-        system_message: str,
-        teams: Optional[List[str]] = None
+        system_message: str
 ):
     """
     Create an agent without tools, customized with a system message.
@@ -76,10 +74,6 @@ def assistant_agent_without_tools(
     if not system_message or not isinstance(system_message, str):
         raise ValueError("Invalid system message. It must be a non-empty string.")
 
-    # Validate teams input only if teams are provided
-    if teams is not None and (not isinstance(teams, list) or not all(isinstance(team, str) for team in teams)):
-        raise ValueError("Invalid teams list. It must be a list of strings.")
-
     # Define the prompt template with system message and placeholder for dynamic messages
     prompt = ChatPromptTemplate.from_messages(
         [
@@ -89,10 +83,7 @@ def assistant_agent_without_tools(
     )
 
     # Add specialization to the current agent using the system message and teams (if provided)
-    if teams:
-        prompt = prompt.partial(system_message=system_message, teams=teams)
-    else:
-        prompt = prompt.partial(system_message=system_message)
+    prompt = prompt.partial(system_message=system_message)
 
     # Bind the prompt to the model and return it
     return prompt | model_llm
@@ -101,6 +92,7 @@ def assistant_agent_without_tools(
 def assistant_agent_with_constructed_output(
         model_llm: ChatOpenAI | ChatAnthropic,
         system_message: str,
+        oai_schema,
         teams: Optional[List[str]] = None
 ):
     """
@@ -111,9 +103,10 @@ def assistant_agent_with_constructed_output(
         model_llm: The agent model (ChatOpenAI or ChatAnthropic) to bind the prompt with.
         system_message: A specialized system message to customize the agent's behavior.
         teams: An optional list of team names that will be passed to the agent.
-
+        oai_schema: ddd
     Returns:
         A configured prompt bound with the model and structured output (TeamState).
+
     """
 
     # Load the default template message for agents without tools

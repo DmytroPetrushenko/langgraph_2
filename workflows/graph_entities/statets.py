@@ -30,17 +30,36 @@ class TeamState(BaseModel):
 
 
 class PlanningTeamState(BaseModel):
-    messages: Annotated[Sequence[BaseMessage], operator.add]
-    sender: str
+    # List of messages exchanged within the team, dynamically combined via operator.add
+    messages: Annotated[List[BaseMessage], operator.add] = Field(
+        description="Messages exchanged within the team during the planning process."
+    )
+
+    # List of senders participating in the communication, dynamically combined via operator.add
+    sender: Annotated[Optional[List[str]], operator.add] = Field(
+        description="List of senders participating in the communication."
+    )
+
+    # The final security testing plan, optional field
     plan: Optional[str] = Field(
         default=None,
-        description="A comprehensive security testing plan"
+        description="A comprehensive security testing plan."
     )
+
+    # List of subgroups relevant to the security testing process, dynamically combined via operator.add
     sub_groups: Annotated[Optional[List[str]], operator.add] = Field(
         default=None,
-        description="List of subgroups used in the security testing process"
+        description="List of subgroups used in the security testing process."
     )
+
+    # List of modules chosen for security testing, dynamically combined via operator.add
     modules: Annotated[Optional[List[str]], operator.add] = Field(
         default=None,
-        description="List of modules selected for the security testing process"
+        description="List of modules selected for the security testing process."
+    )
+
+    # Validator feedback field
+    validator_feedback: Optional[str] = Field(
+        default=None,
+        description="Feedback from the plan validator regarding gaps or improvements."
     )

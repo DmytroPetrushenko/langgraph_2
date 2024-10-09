@@ -12,5 +12,6 @@ def launch_workflow_planning_distributed(input_msg: str):
     stand_alone_executor_experimental(
         graph=graph,
         input_message=input_msg,
-        team_name='planning_distributed_experimental'
+        team_name='planning_distributed_experimental',
+        live_mode=True
     )
